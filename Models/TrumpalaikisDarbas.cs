@@ -16,8 +16,8 @@ namespace is_backend.Models
         public string Miestas { get; set; }
         public string Adresas { get; set; }
         public int IdTrumpalaikisDarbas { get; set; }
-        public int FkImoneidImone { get; set; }
         public int FkVeiklosTipasidVeiklosTipas { get; set; }
+        public int FkImoneidImone { get; set; }
 
         public virtual Imone FkImoneidImoneNavigation { get; set; }
         public virtual VeiklosTipas FkVeiklosTipasidVeiklosTipasNavigation { get; set; }

@@ -7,9 +7,8 @@ namespace is_backend.Models
     {
         public Vartotojas()
         {
-            AtsiliepimasFkVartotojasidVartotojas1Navigation = new HashSet<Atsiliepimas>();
+            Atsiliepimas = new HashSet<Atsiliepimas>();
             IndividualiVeikla = new HashSet<IndividualiVeikla>();
-            Nuotrauka = new HashSet<Nuotrauka>();
         }
 
         public string Vardas { get; set; }
@@ -22,14 +21,9 @@ namespace is_backend.Models
         public bool ArUzsaldytas { get; set; }
         public int IdVartotojas { get; set; }
         public int FkVartotojoTipasidVartotojoTipas { get; set; }
-        public int FkVietaidVieta { get; set; }
 
         public virtual VartotojoTipas FkVartotojoTipasidVartotojoTipasNavigation { get; set; }
-        public virtual Vieta FkVietaidVietaNavigation { get; set; }
-        public virtual Atsiliepimas AtsiliepimasFkVartotojasidVartotojasNavigation { get; set; }
-        public virtual Kontaktai Kontaktai { get; set; }
-        public virtual ICollection<Atsiliepimas> AtsiliepimasFkVartotojasidVartotojas1Navigation { get; set; }
+        public virtual ICollection<Atsiliepimas> Atsiliepimas { get; set; }
         public virtual ICollection<IndividualiVeikla> IndividualiVeikla { get; set; }
-        public virtual ICollection<Nuotrauka> Nuotrauka { get; set; }
     }
 }
