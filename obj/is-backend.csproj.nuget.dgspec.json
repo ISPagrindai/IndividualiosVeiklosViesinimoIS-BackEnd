@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj": {}
+    "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj": {
+    "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj",
+        "projectUniqueName": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj",
         "projectName": "is-backend",
-        "projectPath": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj",
-        "packagesPath": "C:\\Users\\robpet2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\obj\\",
+        "projectPath": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj",
+        "packagesPath": "C:\\Users\\Domantas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\robpet2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Domantas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,14 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.10, )"
@@ -67,6 +75,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [

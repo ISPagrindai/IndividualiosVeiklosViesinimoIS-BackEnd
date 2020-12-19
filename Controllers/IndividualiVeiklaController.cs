@@ -1,7 +1,10 @@
-﻿using is_backend.IV_Models;
+﻿using is_backend.Dto;
+using is_backend.IV_Models;
 using is_backend.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +26,12 @@ namespace is_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Post(PostIW post)
+        public async Task<IActionResult> Post(POST_IndividualiVeikla post)
         {
             try
             {
+                if (ModelState.IsValid)
+                    return BadRequest();
                 var veikla = new IndividualiVeikla()
                 {
                     Pavadinimas = post.Pavadinimas,
@@ -41,21 +46,61 @@ namespace is_backend.Controllers
                 };
                 await _db.IndividualiVeikla.AddAsync(veikla);
                 await _db.SaveChangesAsync();
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return Ok();
             }
             catch
             {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent("Individual Event Post failed.", System.Text.Encoding.UTF8, "text/plain"),
-                };
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
         [HttpGet]
-        public IEnumerable<IndividualiVeikla> Get()
+        public async Task<ActionResult<IEnumerable<IndividualiVeikla>>> Get()
         {
-            return _db.IndividualiVeikla.ToList();
+            return Ok(await _db.IndividualiVeikla.ToListAsync());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == id);
+            if (veikla == null)
+                return NotFound();
+            return Ok(veikla);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == id);
+            if (veikla == null)
+                return NotFound();
+            _db.IndividualiVeikla.Remove(veikla);
+            await _db.SaveChangesAsync();
+            return Ok(veikla);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UPDATE_IndividualiVeikla post)
+        {
+            if (ModelState.IsValid)
+                return BadRequest();
+            var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == post.IndividualiosVeiklosId);
+            if (veikla == null)
+                return NotFound();
+            UpdateFields(veikla, post);
+            await _db.SaveChangesAsync();
+            return Ok();
+        }
+
+        private void UpdateFields(IndividualiVeikla oldData, UPDATE_IndividualiVeikla newData)
+        {
+            oldData.Pavadinimas = newData.Pavadinimas;
+            oldData.Aprasymas = newData.Aprasymas;
+            oldData.Kaina = newData.Kaina;
+            oldData.Grafikas = newData.Grafikas;
+            oldData.Miestas = newData.Miestas;
+            oldData.FkVeiklosTipasidVeiklosTipas = newData.VeiklosTipas;
         }
     }
 }

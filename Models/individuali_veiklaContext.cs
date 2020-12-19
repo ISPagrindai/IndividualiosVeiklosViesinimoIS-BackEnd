@@ -18,6 +18,7 @@ namespace is_backend.Models
         public virtual DbSet<Atsiliepimas> Atsiliepimas { get; set; }
         public virtual DbSet<Imone> Imone { get; set; }
         public virtual DbSet<IndividualiVeikla> IndividualiVeikla { get; set; }
+        public virtual DbSet<PrisijungimoDuomenys> PrisijungimoDuomenys { get; set; }
         public virtual DbSet<TrumpalaikisDarbas> TrumpalaikisDarbas { get; set; }
         public virtual DbSet<Vartotojas> Vartotojas { get; set; }
         public virtual DbSet<VartotojoKandidatavimas> VartotojoKandidatavimas { get; set; }
@@ -29,8 +30,7 @@ namespace is_backend.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("Name=IndividualiVeiklaDB");
-                //optionsBuilder.UseMySql("user id=root;persistsecurityinfo=True;server=127.0.0.1;database=individuali_veikla;password=root", x => x.ServerVersion("8.0.20-mysql"));
+                optionsBuilder.UseMySql("user id=root;persistsecurityinfo=True;server=127.0.0.1;database=individuali_veikla;password=root", x => x.ServerVersion("8.0.20-mysql"));
             }
         }
 
@@ -207,7 +207,7 @@ namespace is_backend.Models
 
                 entity.Property(e => e.Kaina)
                     .HasColumnName("kaina")
-                    .HasColumnType("decimal(10,0)");
+                    .HasColumnType("decimal(10,2)");
 
                 entity.Property(e => e.Miestas)
                     .IsRequired()
@@ -236,6 +236,58 @@ namespace is_backend.Models
                     .HasForeignKey(d => d.FkVeiklosTipasidVeiklosTipas)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("priklauso");
+            });
+
+            modelBuilder.Entity<PrisijungimoDuomenys>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("prisijungimo_duomenys");
+
+                entity.HasIndex(e => e.FkImoneId)
+                    .HasName("fk_imone_id");
+
+                entity.HasIndex(e => e.FkTipas)
+                    .HasName("fk_tipas");
+
+                entity.HasIndex(e => e.FkVartotojasId)
+                    .HasName("fk_vartotojas_id");
+
+                entity.Property(e => e.Epastas)
+                    .IsRequired()
+                    .HasColumnName("epastas")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.FkImoneId).HasColumnName("fk_imone_id");
+
+                entity.Property(e => e.FkTipas).HasColumnName("fk_tipas");
+
+                entity.Property(e => e.FkVartotojasId).HasColumnName("fk_vartotojas_id");
+
+                entity.Property(e => e.Slaptazodis)
+                    .IsRequired()
+                    .HasColumnName("slaptazodis")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.FkImone)
+                    .WithMany()
+                    .HasForeignKey(d => d.FkImoneId)
+                    .HasConstraintName("prisijungimo_duomenys_ibfk_3");
+
+                entity.HasOne(d => d.FkTipasNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.FkTipas)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("prisijungimo_duomenys_ibfk_1");
+
+                entity.HasOne(d => d.FkVartotojas)
+                    .WithMany()
+                    .HasForeignKey(d => d.FkVartotojasId)
+                    .HasConstraintName("prisijungimo_duomenys_ibfk_2");
             });
 
             modelBuilder.Entity<TrumpalaikisDarbas>(entity =>
@@ -287,7 +339,7 @@ namespace is_backend.Models
 
                 entity.Property(e => e.Uzmokestis)
                     .HasColumnName("uzmokestis")
-                    .HasColumnType("decimal(10,0)");
+                    .HasColumnType("decimal(10,2)");
 
                 entity.HasOne(d => d.FkImoneidImoneNavigation)
                     .WithMany(p => p.TrumpalaikisDarbas)
