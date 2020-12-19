@@ -30,6 +30,7 @@ namespace is_backend.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySql("Name=IndividualiVeiklaDB");
+                //optionsBuilder.UseMySql("user id=root;persistsecurityinfo=True;server=127.0.0.1;database=individuali_veikla;password=root", x => x.ServerVersion("8.0.20-mysql"));
             }
         }
 
