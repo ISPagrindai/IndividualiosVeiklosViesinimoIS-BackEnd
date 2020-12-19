@@ -1,5 +1,6 @@
 ﻿using is_backend.IV_Models;
 using is_backend.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace is_backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors]
     public class IndividualiVeiklaController : Controller
     {
         private readonly individuali_veiklaContext _db;
@@ -28,12 +30,14 @@ namespace is_backend.Controllers
             {
                 var veikla = new IndividualiVeikla()
                 {
+                    IdIndividualiVeikla = 1,
                     Pavadinimas = post.Pavadinimas,
                     Aprasymas = post.Aprasymas,
                     Kaina = post.Kaina,
                     Grafikas = post.Grafikas,
                     ArUzsaldytas = false,
                     Vip = 0,
+                    Miestas = post.Miestas,
                     FkVeiklosTipasidVeiklosTipas = post.VeiklosTipas,
                     FkVartotojasidVartotojas = post.UserId
                 };
