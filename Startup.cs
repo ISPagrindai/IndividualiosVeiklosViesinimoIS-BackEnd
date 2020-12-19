@@ -46,7 +46,7 @@ namespace is_backend
                 });
             }
 
-            app.UseCors();
+            //app.UseCors();
 
             app.UseHttpsRedirection();
 

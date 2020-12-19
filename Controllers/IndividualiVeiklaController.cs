@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 namespace is_backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    [EnableCors]
+    [Route("api/[controller]")]
     public class IndividualiVeiklaController : Controller
     {
         private readonly individuali_veiklaContext _db;
@@ -30,7 +29,6 @@ namespace is_backend.Controllers
             {
                 var veikla = new IndividualiVeikla()
                 {
-                    IdIndividualiVeikla = 1,
                     Pavadinimas = post.Pavadinimas,
                     Aprasymas = post.Aprasymas,
                     Kaina = post.Kaina,
