@@ -1,6 +1,7 @@
 ﻿using is_backend.Dto;
 using is_backend.IV_Models;
 using is_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ namespace is_backend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.VartotojasIrAdmin)]
         public async Task<IActionResult> Post(POST_IndividualiVeikla post)
         {
             try
@@ -70,24 +72,39 @@ namespace is_backend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.VartotojasIrAdmin)]
         public async Task<IActionResult> Delete(int id)
         {
+            var vartotojoId = int.Parse(User.Identity.Name);
+
             var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == id);
             if (veikla == null)
                 return NotFound();
+
+            if (User.IsInRole(Role.Vartotojas) && veikla.FkVartotojasidVartotojas != vartotojoId)
+                return Forbid();
+
             _db.IndividualiVeikla.Remove(veikla);
             await _db.SaveChangesAsync();
             return Ok(veikla);
         }
 
         [HttpPut]
+        [Authorize(Roles = Role.VartotojasIrAdmin)]
         public async Task<IActionResult> Update(UPDATE_IndividualiVeikla post)
         {
             if (ModelState.IsValid)
                 return BadRequest();
+
+            var vartotojoId = int.Parse(User.Identity.Name);
+
             var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == post.IndividualiosVeiklosId);
             if (veikla == null)
                 return NotFound();
+
+            if (User.IsInRole(Role.Vartotojas) && veikla.FkVartotojasidVartotojas == vartotojoId)
+                return Forbid();
+
             UpdateFields(veikla, post);
             await _db.SaveChangesAsync();
             return Ok();
