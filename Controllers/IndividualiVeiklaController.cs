@@ -56,6 +56,18 @@ namespace is_backend.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize(Roles = Role.Vartotojas)]
+        public async Task<IActionResult> Post(POST_TrumpalaikioDarboPretendavimas job)
+        {
+            var vartotojoId = int.Parse(User.Identity.Name);
+            if (job.TrumpalaikoDarboId < 1)
+                return BadRequest();
+            await _db.VartotojoKandidatavimas.AddAsync(new VartotojoKandidatavimas() { FkVartotojasidVartotojas = vartotojoId, FkTrumpalaikisDarbasidTrumpalaikisDarbas = job.TrumpalaikoDarboId });
+            await _db.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IndividualiVeikla>>> Get()
         {
@@ -71,7 +83,6 @@ namespace is_backend.Controllers
             return Ok(veikla);
         }
 
-        [HttpDelete("{id}")]
         [Authorize(Roles = Role.VartotojasIrAdmin)]
         public async Task<IActionResult> Delete(DELETE_Id delete)
         {

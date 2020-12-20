@@ -18,16 +18,13 @@ namespace is_backend.Models_2
         public string Vardas { get; set; }
         [Required]
         public string Pavarde { get; set; }
-        [Required]
-        public DateTime GimimoMetai { get; set; }
+        public DateTime? GimimoMetai { get; set; }
         [Required]
         public string Lytis { get; set; }
         [Required]
         public string Aprasymas { get; set; }
-        [Required]
-        public string AsmensKodas { get; set; }
-        [Required]
-        public string SasNr { get; set; }
+        public string? AsmensKodas { get; set; }
+        public string? SasNr { get; set; }
 
     }
 }

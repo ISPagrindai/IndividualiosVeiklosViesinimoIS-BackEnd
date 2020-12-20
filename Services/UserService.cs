@@ -18,17 +18,16 @@ namespace is_backend.Services
     {
         PrisijungimoDuomenys Authenticate(string username, string password);
         PrisijungimoDuomenys Create(RegisterModel user, string password);
+        PrisijungimoDuomenys CreateCompany(RegisterCompanyModel company, string password);
     }
 
     public class UserService : IUserService
     {
 
-        private readonly AppSettings _appSettings;
         private readonly individuali_veiklaContext _db;
 
-        public UserService(IOptions<AppSettings> appSettings, individuali_veiklaContext db)
+        public UserService(individuali_veiklaContext db)
         {
-            _appSettings = appSettings.Value;
             _db = db;
         }
 
@@ -49,7 +48,7 @@ namespace is_backend.Services
 
         public PrisijungimoDuomenys Create(RegisterModel user, string password)
         {
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
             if (_db.PrisijungimoDuomenys.Any(x => x.Epastas == user.Epastas))
@@ -73,6 +72,38 @@ namespace is_backend.Services
             var vartotojasId = vartotojas.IdVartotojas;
 
             duomenys.FkVartotojasId = vartotojasId;
+            _db.PrisijungimoDuomenys.Add(duomenys);
+            _db.SaveChanges();
+
+            return duomenys;
+        }
+
+        public PrisijungimoDuomenys CreateCompany(RegisterCompanyModel company, string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                throw new AppException("Password is required");
+
+            if (_db.PrisijungimoDuomenys.Any(x => x.Epastas == company.Epastas))
+                throw new AppException("Email \"" + company.Epastas + "\" is already taken");
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+            var duomenys = new PrisijungimoDuomenys();
+            duomenys.Epastas = company.Epastas;
+            duomenys.FkTipas = company.Tipas;
+            duomenys.Slaptazodis = passwordHash;
+            duomenys.SlaptazodisSalt = passwordSalt;
+
+            var imone = new Imone();
+            MapImone(imone, company);
+
+            _db.Imone.Add(imone);
+            _db.SaveChanges();
+
+            var imonesId = imone.IdImone;
+
+            duomenys.FkImoneId = imonesId;
             _db.PrisijungimoDuomenys.Add(duomenys);
             _db.SaveChanges();
 
@@ -120,6 +151,21 @@ namespace is_backend.Services
             vartotojas.Pavarde = register.Pavarde;
             vartotojas.SasNr = register.SasNr;
             vartotojas.Vardas = register.Vardas;
+        }
+
+        private void MapImone(Imone imone, RegisterCompanyModel register)
+        {
+            imone.Adresas = register.Adresas;
+            imone.Aprasymas = register.Aprasymas;
+            imone.ArUzsaldytas = false;
+            imone.ElPastas = register.ImonesPastas;
+            imone.ImonesKodas = register.ImonesKodas;
+            imone.Miestas = register.Miestas;
+            imone.Nuotrauka = register.Nuotrauka;
+            imone.Pavadinimas = register.Pavadinimas;
+            imone.TelNr = register.TelNr;
+            imone.Tinklalapis = register.Tinklapis;
+            imone.Vadovas = register.Vadovas;
         }
     }
 }

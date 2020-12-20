@@ -45,11 +45,21 @@ namespace is_backend.Controllers
             var role = _db.VartotojoTipas.FirstOrDefault(x => x.IdVartotojoTipas == user.FkTipas).Pavadinimas;
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+
+            string name = null;
+            if (user.FkVartotojasId == null && user.FkImoneId == null)
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            if (user.FkVartotojasId != null)
+                name = user.FkVartotojasId.ToString();
+            else
+                name = user.FkImoneId.ToString();
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.FkVartotojasId.ToString()),
+                    new Claim(ClaimTypes.Name, name),
                     new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -73,6 +83,21 @@ namespace is_backend.Controllers
             try
             {
                 _userService.Create(model, model.Slaptazodis);
+                return Ok();
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("registerCompany")]
+        public IActionResult Register([FromBody]RegisterCompanyModel model)
+        {
+            try
+            {
+                _userService.CreateCompany(model, model.Slaptazodis);
                 return Ok();
             }
             catch(AppException ex)
