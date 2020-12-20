@@ -59,7 +59,7 @@ namespace is_backend.Services
 
             var duomenys = new PrisijungimoDuomenys();
             duomenys.Epastas = user.Epastas;
-            duomenys.FkTipas = user.Tipas;
+            duomenys.FkTipas = 2;
             duomenys.Slaptazodis = passwordHash;
             duomenys.SlaptazodisSalt = passwordSalt;
 
@@ -91,7 +91,7 @@ namespace is_backend.Services
 
             var duomenys = new PrisijungimoDuomenys();
             duomenys.Epastas = company.Epastas;
-            duomenys.FkTipas = company.Tipas;
+            duomenys.FkTipas = 3;
             duomenys.Slaptazodis = passwordHash;
             duomenys.SlaptazodisSalt = passwordSalt;
 
