@@ -49,10 +49,10 @@ namespace is_backend.Services
         public PrisijungimoDuomenys Create(RegisterModel user, string password)
         {
             if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
+                throw new AppException("Slaptažodis privalomas");
 
             if (_db.PrisijungimoDuomenys.Any(x => x.Epastas == user.Epastas))
-                throw new AppException("Email \"" + user.Epastas + "\" is already taken");
+                throw new AppException("El.Paštas \"" + user.Epastas + "\" jau naudojamas");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -81,10 +81,10 @@ namespace is_backend.Services
         public PrisijungimoDuomenys CreateCompany(RegisterCompanyModel company, string password)
         {
             if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
+                throw new AppException("Slaptažodis privalomas");
 
             if (_db.PrisijungimoDuomenys.Any(x => x.Epastas == company.Epastas))
-                throw new AppException("Email \"" + company.Epastas + "\" is already taken");
+                throw new AppException("El.Paštas \"" + company.Epastas + "\" jau naudojamas");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
