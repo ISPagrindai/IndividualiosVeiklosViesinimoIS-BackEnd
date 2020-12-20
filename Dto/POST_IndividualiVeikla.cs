@@ -9,8 +9,6 @@ namespace is_backend.IV_Models
     public class POST_IndividualiVeikla
     {
         [Required]
-        public int UserId { get; set; }
-        [Required]
         [MinLength(5)]
         public string Pavadinimas { get; set; }
         [Required]

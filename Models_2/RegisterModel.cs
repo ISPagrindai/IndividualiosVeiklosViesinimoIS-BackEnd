@@ -23,8 +23,7 @@ namespace is_backend.Models_2
         public string Lytis { get; set; }
         [Required]
         public string Aprasymas { get; set; }
-        public string? AsmensKodas { get; set; }
-        public string? SasNr { get; set; }
-
+        public string AsmensKodas { get; set; }
+        public string SasNr { get; set; }
     }
 }

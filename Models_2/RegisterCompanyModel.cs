@@ -22,8 +22,8 @@ namespace is_backend.Models_2
         public string ImonesKodas { get; set; }
         [Required]
         public string Vadovas { get; set; }
-        public string? Tinklapis { get; set; }
-        public byte[]? Nuotrauka { get; set; }
+        public string Tinklapis { get; set; }
+        public byte[] Nuotrauka { get; set; }
         [Required]
         public string TelNr { get; set; }
         [Required]
