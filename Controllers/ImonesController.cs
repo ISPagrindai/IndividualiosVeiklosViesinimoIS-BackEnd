@@ -1,5 +1,6 @@
 ﻿using is_backend.Dto;
 using is_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,6 +34,12 @@ namespace is_backend.Controllers
 
             return Ok(_db.TrumpalaikisDarbas.Where(offer => offer.FkImoneidImone == id).ToList());
         }
+        //[HttpGet]
+        //public ActionResult<IEnumerable<TrumpalaikisDarbas>> GetCurrentUserWorkOffers()
+        //{
+            
+        //}
+
         [HttpGet("darbas/{id?}")]
         public ActionResult<TrumpalaikisDarbas> GetWorkOfferById(int id)
         {
