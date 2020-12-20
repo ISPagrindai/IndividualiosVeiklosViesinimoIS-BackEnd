@@ -12,5 +12,6 @@ namespace is_backend
         public const string Imone = "Įmonė";
 
         public const string VartotojasIrAdmin = Admin + "," + Vartotojas;
+        public const string ImoneIrAdmin = Admin + "," + Imone;
     }
 }
