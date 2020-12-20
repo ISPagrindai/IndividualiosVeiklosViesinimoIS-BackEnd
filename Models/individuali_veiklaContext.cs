@@ -30,6 +30,7 @@ namespace is_backend.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("user id=root;persistsecurityinfo=True;server=127.0.0.1;database=individuali_veikla;password=root", x => x.ServerVersion("8.0.20-mysql"));
             }
         }
@@ -240,7 +241,8 @@ namespace is_backend.Models
 
             modelBuilder.Entity<PrisijungimoDuomenys>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Epastas)
+                    .HasName("PRIMARY");
 
                 entity.ToTable("prisijungimo_duomenys");
 
@@ -254,7 +256,6 @@ namespace is_backend.Models
                     .HasName("fk_vartotojas_id");
 
                 entity.Property(e => e.Epastas)
-                    .IsRequired()
                     .HasColumnName("epastas")
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
@@ -269,23 +270,26 @@ namespace is_backend.Models
                 entity.Property(e => e.Slaptazodis)
                     .IsRequired()
                     .HasColumnName("slaptazodis")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SlaptazodisSalt)
+                    .IsRequired()
+                    .HasColumnName("slaptazodisSalt")
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.FkImone)
-                    .WithMany()
+                    .WithMany(p => p.PrisijungimoDuomenys)
                     .HasForeignKey(d => d.FkImoneId)
                     .HasConstraintName("prisijungimo_duomenys_ibfk_3");
 
                 entity.HasOne(d => d.FkTipasNavigation)
-                    .WithMany()
+                    .WithMany(p => p.PrisijungimoDuomenys)
                     .HasForeignKey(d => d.FkTipas)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("prisijungimo_duomenys_ibfk_1");
 
                 entity.HasOne(d => d.FkVartotojas)
-                    .WithMany()
+                    .WithMany(p => p.PrisijungimoDuomenys)
                     .HasForeignKey(d => d.FkVartotojasId)
                     .HasConstraintName("prisijungimo_duomenys_ibfk_2");
             });
@@ -361,9 +365,6 @@ namespace is_backend.Models
 
                 entity.ToTable("vartotojas");
 
-                entity.HasIndex(e => e.FkVartotojoTipasidVartotojoTipas)
-                    .HasName("fk_Vartotojo_tipasid_Vartotojo_tipas");
-
                 entity.Property(e => e.IdVartotojas).HasColumnName("id_Vartotojas");
 
                 entity.Property(e => e.Aprasymas)
@@ -376,13 +377,10 @@ namespace is_backend.Models
                 entity.Property(e => e.ArUzsaldytas).HasColumnName("ar_uzsaldytas");
 
                 entity.Property(e => e.AsmensKodas)
-                    .IsRequired()
                     .HasColumnName("asmens_kodas")
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
-
-                entity.Property(e => e.FkVartotojoTipasidVartotojoTipas).HasColumnName("fk_Vartotojo_tipasid_Vartotojo_tipas");
 
                 entity.Property(e => e.GimimoMetai)
                     .HasColumnName("gimimo_metai")
@@ -403,7 +401,6 @@ namespace is_backend.Models
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.SasNr)
-                    .IsRequired()
                     .HasColumnName("sas_nr")
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
@@ -415,12 +412,6 @@ namespace is_backend.Models
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
-
-                entity.HasOne(d => d.FkVartotojoTipasidVartotojoTipasNavigation)
-                    .WithMany(p => p.Vartotojas)
-                    .HasForeignKey(d => d.FkVartotojoTipasidVartotojoTipas)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("vartotojas_ibfk_1");
             });
 
             modelBuilder.Entity<VartotojoKandidatavimas>(entity =>

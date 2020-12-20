@@ -7,12 +7,12 @@ namespace is_backend.Models
     {
         public VartotojoTipas()
         {
-            Vartotojas = new HashSet<Vartotojas>();
+            PrisijungimoDuomenys = new HashSet<PrisijungimoDuomenys>();
         }
 
         public string Pavadinimas { get; set; }
         public int IdVartotojoTipas { get; set; }
 
-        public virtual ICollection<Vartotojas> Vartotojas { get; set; }
+        public virtual ICollection<PrisijungimoDuomenys> PrisijungimoDuomenys { get; set; }
     }
 }

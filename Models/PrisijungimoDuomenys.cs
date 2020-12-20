@@ -6,7 +6,8 @@ namespace is_backend.Models
     public partial class PrisijungimoDuomenys
     {
         public string Epastas { get; set; }
-        public string Slaptazodis { get; set; }
+        public byte[] Slaptazodis { get; set; }
+        public byte[] SlaptazodisSalt { get; set; }
         public int FkTipas { get; set; }
         public int? FkVartotojasId { get; set; }
         public int? FkImoneId { get; set; }
