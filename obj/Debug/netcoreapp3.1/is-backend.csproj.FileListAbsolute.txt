@@ -103,3 +103,10 @@ C:\Users\Domantas\Desktop\3rd\IS_pagrindai\_back_end\bin\Debug\netcoreapp3.1\Sys
 C:\Users\Domantas\Desktop\3rd\IS_pagrindai\_back_end\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Domantas\Desktop\3rd\IS_pagrindai\_back_end\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Domantas\Desktop\3rd\IS_pagrindai\_back_end\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\robpet2\Desktop\IsPagrindai\is-backend\is-backend\is-backend\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

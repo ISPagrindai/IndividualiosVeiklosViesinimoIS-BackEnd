@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GIR8oEn6zuR3hyVaVN4NcEmRA6m5rGGFrMERehUa1xSNS7PRxhqwVkji7971am1+LNFRdB1b7oZ8MTTiHuqaVw==",
+  "dgSpecHash": "ZoDx/6jk3ILic7Q/0gFUEJYd2Nr7aHFsKLtEk2IZ/yhGYAzn6Gzder1vMZ0VzMBfLKm2wRvKuXoqkRFiNz+FsA==",
   "success": true,
   "projectFilePath": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.10\\microsoft.aspnetcore.authentication.jwtbearer.3.1.10.nupkg.sha512",
+    "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",
     "C:\\Users\\robpet2\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\2.2.0\\microsoft.aspnetcore.dataprotection.abstractions.2.2.0.nupkg.sha512",
