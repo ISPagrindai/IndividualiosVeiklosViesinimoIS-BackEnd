@@ -44,8 +44,8 @@ namespace is_backend.Controllers
                     Vip = 0,
                     Miestas = post.Miestas,
                     FkVeiklosTipasidVeiklosTipas = post.VeiklosTipas,
-                    FkVartotojasidVartotojas = post.UserId
-                };
+                    FkVartotojasidVartotojas = int.Parse(User.Identity.Name)
+            };
                 await _db.IndividualiVeikla.AddAsync(veikla);
                 await _db.SaveChangesAsync();
                 return Ok();
@@ -73,11 +73,11 @@ namespace is_backend.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Role.VartotojasIrAdmin)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(DELETE_Id delete)
         {
             var vartotojoId = int.Parse(User.Identity.Name);
 
-            var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == id);
+            var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == delete.Id);
             if (veikla == null)
                 return NotFound();
 

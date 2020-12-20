@@ -11,5 +11,7 @@ namespace is_backend.Entities
         public string Slaptazodis { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }

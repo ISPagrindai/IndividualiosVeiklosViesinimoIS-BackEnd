@@ -8,6 +8,7 @@ namespace is_backend.Models
         public Imone()
         {
             Atsiliepimas = new HashSet<Atsiliepimas>();
+            PrisijungimoDuomenys = new HashSet<PrisijungimoDuomenys>();
             TrumpalaikisDarbas = new HashSet<TrumpalaikisDarbas>();
         }
 
@@ -25,6 +26,7 @@ namespace is_backend.Models
         public int IdImone { get; set; }
 
         public virtual ICollection<Atsiliepimas> Atsiliepimas { get; set; }
+        public virtual ICollection<PrisijungimoDuomenys> PrisijungimoDuomenys { get; set; }
         public virtual ICollection<TrumpalaikisDarbas> TrumpalaikisDarbas { get; set; }
     }
 }
