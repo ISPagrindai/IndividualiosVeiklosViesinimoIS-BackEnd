@@ -26,5 +26,11 @@ namespace is_backend.Controllers
         {
             return Ok(await _db.Vartotojas.ToListAsync());
         }
+        [Authorize(Roles = Role.Admin)]
+        [HttpGet("imones")]
+        public async Task<ActionResult<IEnumerable<Vartotojas>>> GetAllEmployers()
+        {
+            return Ok(await _db.Imone.ToListAsync());
+        }
     }
 }

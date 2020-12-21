@@ -42,6 +42,13 @@ namespace is_backend.Controllers
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
+            if(user.FkImoneId != null)
+            {
+                var imone = _db.Imone.Find(user.FkImoneId);
+                if (imone.ArUzsaldytas == true)
+                    return Unauthorized("Paskyra dar neaktyvuota arba buvo užšaldyta");
+            }
+
             var role = _db.VartotojoTipas.FirstOrDefault(x => x.IdVartotojoTipas == user.FkTipas).Pavadinimas;
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);

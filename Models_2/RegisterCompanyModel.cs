@@ -13,8 +13,6 @@ namespace is_backend.Models_2
         [Required]
         public string Slaptazodis { get; set; }
         [Required]
-        public int Tipas { get; set; }
-        [Required]
         public string Pavadinimas { get; set; }
         [Required]
         public string Aprasymas { get; set; }
