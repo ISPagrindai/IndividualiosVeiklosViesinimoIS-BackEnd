@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace is_backend.Models
 {
@@ -22,8 +23,12 @@ namespace is_backend.Models
         public bool ArUzsaldytas { get; set; }
         public int IdVartotojas { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Atsiliepimas> Atsiliepimas { get; set; }
+        [JsonIgnore]
         public virtual ICollection<IndividualiVeikla> IndividualiVeikla { get; set; }
+        [JsonIgnore]
         public virtual ICollection<PrisijungimoDuomenys> PrisijungimoDuomenys { get; set; }
+        
     }
 }
