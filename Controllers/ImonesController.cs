@@ -1,12 +1,8 @@
 ﻿using is_backend.Dto;
 using is_backend.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace is_backend.Controllers
 {
@@ -49,8 +45,8 @@ namespace is_backend.Controllers
         [HttpPost]
         public ActionResult NewWorkOffer(POST_TrumpalaikisDarbas post)
         {
-            if (!ModelState.IsValid || _db.VeiklosTipas.Find(post.VeiklosTipas) == null)
-                return BadRequest("One or more invalid fields");
+            if (_db.VeiklosTipas.Find(post.Tipas) == null)
+                return BadRequest("Netinkamas veiklos tipas");
 
             var result = postMapper(post);
             _db.TrumpalaikisDarbas.Add(result);
@@ -91,7 +87,7 @@ namespace is_backend.Controllers
             result.Adresas = post.Adresas;
             result.Uzmokestis = post.Uzmokestis;
             result.Miestas = post.Miestas;
-            result.FkVeiklosTipasidVeiklosTipasNavigation = _db.VeiklosTipas.Find(post.VeiklosTipas);
+            result.FkVeiklosTipasidVeiklosTipasNavigation = _db.VeiklosTipas.Find(post.Tipas);
             result.FkImoneidImoneNavigation = _db.Imone.First(); // TODO change
             return result;
         }
@@ -103,7 +99,7 @@ namespace is_backend.Controllers
             result.Adresas = post.Adresas;
             result.Uzmokestis = post.Uzmokestis;
             result.Miestas = post.Miestas;
-            result.FkVeiklosTipasidVeiklosTipasNavigation = _db.VeiklosTipas.Find(post.VeiklosTipas);
+            result.FkVeiklosTipasidVeiklosTipasNavigation = _db.VeiklosTipas.Find(post.Tipas);
             result.FkImoneidImoneNavigation = _db.Imone.First(); // TODO change
             return result;
         }

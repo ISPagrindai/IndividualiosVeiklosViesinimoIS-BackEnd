@@ -21,6 +21,6 @@ namespace is_backend.Dto
         [MinLength(5)]
         public string Adresas { get; set; }
         [Required]
-        public int VeiklosTipas { get; set; }
+        public int Tipas { get; set; }
     }
 }
