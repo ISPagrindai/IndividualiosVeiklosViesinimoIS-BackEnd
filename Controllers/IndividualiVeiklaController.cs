@@ -32,7 +32,7 @@ namespace is_backend.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                     return BadRequest();
                 var veikla = new IndividualiVeikla()
                 {
@@ -56,17 +56,17 @@ namespace is_backend.Controllers
             }
         }
 
-        [HttpPost]
-        [Authorize(Roles = Role.Vartotojas)]
-        public async Task<IActionResult> Post(POST_TrumpalaikioDarboPretendavimas job)
-        {
-            var vartotojoId = int.Parse(User.Identity.Name);
-            if (job.TrumpalaikoDarboId < 1)
-                return BadRequest();
-            await _db.VartotojoKandidatavimas.AddAsync(new VartotojoKandidatavimas() { FkVartotojasidVartotojas = vartotojoId, FkTrumpalaikisDarbasidTrumpalaikisDarbas = job.TrumpalaikoDarboId });
-            await _db.SaveChangesAsync();
-            return Ok();
-        }
+        //[HttpPost]
+        //[Authorize(Roles = Role.Vartotojas)]
+        //public async Task<IActionResult> Post(POST_TrumpalaikioDarboPretendavimas job)
+        //{
+        //    var vartotojoId = int.Parse(User.Identity.Name);
+        //    if (job.TrumpalaikoDarboId < 1)
+        //        return BadRequest();
+        //    await _db.VartotojoKandidatavimas.AddAsync(new VartotojoKandidatavimas() { FkVartotojasidVartotojas = vartotojoId, FkTrumpalaikisDarbasidTrumpalaikisDarbas = job.TrumpalaikoDarboId });
+        //    await _db.SaveChangesAsync();
+        //    return Ok();
+        //}
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IndividualiVeikla>>> Get()
