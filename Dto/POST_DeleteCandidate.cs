@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace is_backend.Dto
 {
-    public class DELETE_Id
+    public class POST_DeleteCandidate
     {
-        public int Id { get; set; }
+        public int JobId { get; set; }
+        public int CandidateId { get; set; }
     }
 }
