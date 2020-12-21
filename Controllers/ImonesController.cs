@@ -71,10 +71,10 @@ namespace is_backend.Controllers
             _db.SaveChanges();
             return Ok();
         }
-        [HttpDelete]
-        public ActionResult DeleteWorkOffer(DELETE_Id post)
+        [HttpDelete("{id}")]
+        public ActionResult DeleteWorkOffer(int id)
         {
-            var result = _db.TrumpalaikisDarbas.Find(post.Id);
+            var result = _db.TrumpalaikisDarbas.FirstOrDefault(t => t.IdTrumpalaikisDarbas == id);
             if (result == null)
                 return NotFound();
 
