@@ -96,9 +96,9 @@ namespace is_backend.Services
             duomenys.Slaptazodis = passwordHash;
             duomenys.SlaptazodisSalt = passwordSalt;
 
-            var imone = new Imone();
+            var imone = new Imone();         
             MapImone(imone, company);
-
+            imone.ArUzsaldytas = true;
             _db.Imone.Add(imone);
             _db.SaveChanges();
 

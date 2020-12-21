@@ -3,6 +3,7 @@ using is_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,12 @@ namespace is_backend.Controllers
         public AtsiliepimasController(individuali_veiklaContext context)
         {
             _db = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Atsiliepimas>>> Get()
+        {
+            return Ok(await _db.Atsiliepimas.ToListAsync());
         }
 
         [HttpPost]

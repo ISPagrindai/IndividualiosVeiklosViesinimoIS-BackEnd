@@ -26,6 +26,7 @@ namespace is_backend.Controllers
             var temp = _db.VeiklosTipas.Select(a =>  mapToGet(a)).ToHashSet();
             return temp;
         }
+
         private static GET_VeiklosTipas mapToGet(VeiklosTipas a)
         {
             return new GET_VeiklosTipas() { Id = a.IdVeiklosTipas, Pavadinimas = a.Pavadinimas };
