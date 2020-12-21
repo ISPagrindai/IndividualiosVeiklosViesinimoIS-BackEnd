@@ -19,6 +19,7 @@ namespace is_backend.Services
         PrisijungimoDuomenys Authenticate(string username, string password);
         PrisijungimoDuomenys Create(RegisterModel user, string password);
         PrisijungimoDuomenys CreateCompany(RegisterCompanyModel company, string password);
+        PrisijungimoDuomenys CreateAdmin(RegisterModel user, string password);
     }
 
     public class UserService : IUserService
@@ -104,6 +105,38 @@ namespace is_backend.Services
             var imonesId = imone.IdImone;
 
             duomenys.FkImoneId = imonesId;
+            _db.PrisijungimoDuomenys.Add(duomenys);
+            _db.SaveChanges();
+
+            return duomenys;
+        }
+
+        public PrisijungimoDuomenys CreateAdmin(RegisterModel user, string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                throw new AppException("Slaptažodis privalomas");
+
+            if (_db.PrisijungimoDuomenys.Any(x => x.Epastas == user.Epastas))
+                throw new AppException("El.Paštas \"" + user.Epastas + "\" jau naudojamas");
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+            var duomenys = new PrisijungimoDuomenys();
+            duomenys.Epastas = user.Epastas;
+            duomenys.FkTipas = 1;
+            duomenys.Slaptazodis = passwordHash;
+            duomenys.SlaptazodisSalt = passwordSalt;
+
+            var vartotojas = new Vartotojas();
+            MapVartotojas(vartotojas, user);
+
+            _db.Vartotojas.Add(vartotojas);
+            _db.SaveChanges();
+
+            var vartotojasId = vartotojas.IdVartotojas;
+
+            duomenys.FkVartotojasId = vartotojasId;
             _db.PrisijungimoDuomenys.Add(duomenys);
             _db.SaveChanges();
 
