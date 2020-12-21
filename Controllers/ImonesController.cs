@@ -30,6 +30,17 @@ namespace is_backend.Controllers
 
             return Ok(_db.TrumpalaikisDarbas.Where(offer => offer.FkImoneidImone == id).ToList());
         }
+        [HttpGet("current")]
+        public ActionResult<IEnumerable<TrumpalaikisDarbas>> GetAllWorkOffersByCurrentCompany()
+        {
+            var id = int.Parse(User.Identity.Name);
+
+            if (_db.Imone.Find(id) == null)
+                return NotFound();
+            var result = _db.TrumpalaikisDarbas.Where(offer => offer.FkImoneidImone == id).ToList();
+
+            return Ok(result);
+        }
 
         [HttpGet("darbas/{id?}")]
         public ActionResult<TrumpalaikisDarbas> GetWorkOfferById(int id)
