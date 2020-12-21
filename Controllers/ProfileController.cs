@@ -38,7 +38,7 @@ namespace is_backend.Controllers
             if (User.Identity.IsAuthenticated)
                 return Ok(new { Response = int.Parse(User.Identity.Name) });
             else
-                return Ok();
+                return Ok(new { Response = -1 });
         }
     }
 }

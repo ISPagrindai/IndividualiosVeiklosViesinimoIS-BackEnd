@@ -56,17 +56,18 @@ namespace is_backend.Controllers
             }
         }
 
-        /*[HttpPost]
-        [Authorize(Roles = Role.Vartotojas)]
-        public async Task<IActionResult> Post(POST_TrumpalaikioDarboPretendavimas job)
-        {
-            var vartotojoId = int.Parse(User.Identity.Name);
-            if (job.TrumpalaikoDarboId < 1)
-                return BadRequest();
-            await _db.VartotojoKandidatavimas.AddAsync(new VartotojoKandidatavimas() { FkVartotojasidVartotojas = vartotojoId, FkTrumpalaikisDarbasidTrumpalaikisDarbas = job.TrumpalaikoDarboId });
-            await _db.SaveChangesAsync();
-            return Ok();
-        }*/
+
+        //[HttpPost]
+        //[Authorize(Roles = Role.Vartotojas)]
+        //public async Task<IActionResult> Post(POST_TrumpalaikioDarboPretendavimas job)
+        //{
+        //    var vartotojoId = int.Parse(User.Identity.Name);
+        //    if (job.TrumpalaikoDarboId < 1)
+        //        return BadRequest();
+        //    await _db.VartotojoKandidatavimas.AddAsync(new VartotojoKandidatavimas() { FkVartotojasidVartotojas = vartotojoId, FkTrumpalaikisDarbasidTrumpalaikisDarbas = job.TrumpalaikoDarboId });
+        //    await _db.SaveChangesAsync();
+        //    return Ok();
+        //}
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IndividualiVeikla>>> Get()
@@ -74,12 +75,19 @@ namespace is_backend.Controllers
             return Ok(await _db.IndividualiVeikla.ToListAsync());
         }
 
+        [Authorize(Roles = Role.VartotojasIrAdmin)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
+            var vartotojoId = int.Parse(User.Identity.Name);
+
             var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == id);
             if (veikla == null)
                 return NotFound();
+
+            if (User.IsInRole(Role.Vartotojas) && veikla.FkVartotojasidVartotojas != vartotojoId)
+                return Forbid();
+
             return Ok(veikla);
         }
 
@@ -105,16 +113,16 @@ namespace is_backend.Controllers
         [Authorize(Roles = Role.VartotojasIrAdmin)]
         public async Task<IActionResult> Update(UPDATE_IndividualiVeikla post)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest();
 
             var vartotojoId = int.Parse(User.Identity.Name);
 
-            var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == post.IndividualiosVeiklosId);
+            var veikla = await _db.IndividualiVeikla.FirstOrDefaultAsync(v => v.IdIndividualiVeikla == post.Id);
             if (veikla == null)
                 return NotFound();
 
-            if (User.IsInRole(Role.Vartotojas) && veikla.FkVartotojasidVartotojas == vartotojoId)
+            if (User.IsInRole(Role.Vartotojas) && veikla.FkVartotojasidVartotojas != vartotojoId)
                 return Forbid();
 
             UpdateFields(veikla, post);

@@ -9,9 +9,7 @@ namespace is_backend.Dto
     public class UPDATE_IndividualiVeikla
     {
         [Required]
-        public int IndividualiosVeiklosId { get; set; }
-        [Required]
-        public int UserId { get; set; }
+        public int Id { get; set; }
         [Required]
         [MinLength(5)]
         public string Pavadinimas { get; set; }

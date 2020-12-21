@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace is_backend.Models
 {
@@ -19,8 +20,11 @@ namespace is_backend.Models
         public int FkVeiklosTipasidVeiklosTipas { get; set; }
         public int FkImoneidImone { get; set; }
 
+        [JsonIgnore]
         public virtual Imone FkImoneidImoneNavigation { get; set; }
+        [JsonIgnore]
         public virtual VeiklosTipas FkVeiklosTipasidVeiklosTipasNavigation { get; set; }
+        [JsonIgnore]
         public virtual ICollection<VartotojoKandidatavimas> VartotojoKandidatavimas { get; set; }
     }
 }
