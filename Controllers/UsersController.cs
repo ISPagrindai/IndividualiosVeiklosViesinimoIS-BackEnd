@@ -105,5 +105,20 @@ namespace is_backend.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpPost("registerAdmin")]
+        public IActionResult RegisterAdmin([FromBody]RegisterModel model)
+        {
+            try
+            {
+                _userService.CreateAdmin(model, model.Slaptazodis);
+                return Ok();
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
     }
 }
