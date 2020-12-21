@@ -30,5 +30,15 @@ namespace is_backend.Controllers
 
             return Ok(user);
         }
+
+        [HttpGet]
+        [Authorize(Roles = Role.Vartotojas)]
+        public IActionResult Get()
+        {
+            if (User.Identity.IsAuthenticated)
+                return Ok(new { Response = int.Parse(User.Identity.Name) });
+            else
+                return Ok();
+        }
     }
 }
