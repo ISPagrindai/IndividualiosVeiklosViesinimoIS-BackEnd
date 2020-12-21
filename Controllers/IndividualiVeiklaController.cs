@@ -84,11 +84,12 @@ namespace is_backend.Controllers
         }
 
         [Authorize(Roles = Role.VartotojasIrAdmin)]
-        public async Task<IActionResult> Delete(DELETE_Id delete)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
             var vartotojoId = int.Parse(User.Identity.Name);
 
-            var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == delete.Id);
+            var veikla = _db.IndividualiVeikla.FirstOrDefault(v => v.IdIndividualiVeikla == id);
             if (veikla == null)
                 return NotFound();
 

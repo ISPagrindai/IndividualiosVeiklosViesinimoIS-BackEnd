@@ -46,7 +46,7 @@ namespace is_backend.Controllers
         public ActionResult<TrumpalaikisDarbas> GetWorkOfferById(int id)
         {
             var result = _db.TrumpalaikisDarbas.Find(id);
-            if (result == null)
+            if(result == null)
             {
                 return NotFound();
             }
@@ -81,7 +81,7 @@ namespace is_backend.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteWorkOffer(int id)
         {
-            var result = _db.TrumpalaikisDarbas.Find(id);
+            var result = _db.TrumpalaikisDarbas.FirstOrDefault(t => t.IdTrumpalaikisDarbas == id);
             if (result == null)
                 return NotFound();
 
