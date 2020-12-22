@@ -39,9 +39,11 @@ namespace is_backend.Controllers
         public ActionResult DeleteEmployer(int id)
         {
             var result = _db.Imone.FirstOrDefault(t => t.IdImone == id);
-            if (result == null)
+            var prisijungimas = _db.PrisijungimoDuomenys.FirstOrDefault(t => t.FkImoneId == id);
+            if (result == null || prisijungimas == null)
                 return NotFound();
 
+            _db.PrisijungimoDuomenys.Remove(prisijungimas);
             _db.Imone.Remove(result);
             _db.SaveChanges();
             return Ok();
@@ -88,6 +90,19 @@ namespace is_backend.Controllers
             result.ArUzsaldytas = post.ArUzsaldytas;
 
             return result;
+        }
+        [Authorize(Roles = Role.Admin)]
+        [HttpDelete("user/{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            var result = _db.Vartotojas.FirstOrDefault(t => t.IdVartotojas == id);
+            var prisijungimas = _db.PrisijungimoDuomenys.FirstOrDefault(t => t.FkVartotojasId == id);
+            if (result == null || prisijungimas == null)
+                return NotFound();
+            _db.PrisijungimoDuomenys.Remove(prisijungimas);
+            _db.Vartotojas.Remove(result);
+            _db.SaveChanges();
+            return Ok();
         }
     }
 }

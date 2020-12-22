@@ -2325,19 +2325,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Domantas\\.nuget\\packages\\": {}
+    "C:\\Users\\robpet2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj",
+      "projectUniqueName": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj",
       "projectName": "is-backend",
-      "projectPath": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\is-backend.csproj",
-      "packagesPath": "C:\\Users\\Domantas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Domantas\\Desktop\\3rd\\IS_pagrindai\\_back_end\\obj\\",
+      "projectPath": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\is-backend.csproj",
+      "packagesPath": "C:\\Users\\robpet2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\robpet2\\Desktop\\IsPagrindai\\is-backend\\is-backend\\is-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Domantas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\robpet2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
